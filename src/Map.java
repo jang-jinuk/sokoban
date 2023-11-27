@@ -21,27 +21,21 @@ public class Map {
                 if (stage[i][j] == 0) {
                     System.out.print(" ");
                 }
-
                 if (stage[i][j] == 1) {
                     System.out.print("O");
                 }
-
                 if (stage[i][j] == 2) {
                     System.out.print("o");
                 }
-
                 if (stage[i][j] == 3) {
                     System.out.print("P");
                 }
-
                 if (stage[i][j] == 4) {
                     System.out.print("#");
                 }
             }
-
             System.out.println();
         }
-
         System.out.println();
     }
 }
