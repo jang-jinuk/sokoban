@@ -7,11 +7,11 @@ public class Sokoban {
                 {4, 4, 4, 0, 0, 2, 0, 0, 4, 4, 4},
                 {0, 4, 0, 0, 0, 1, 0, 0, 0, 4, 0},
                 {0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0}};
+        int[] currentLocation = playerLocation(stage2);
 
         while (true) {
             printMap(stage2);
 
-            int[] currentLocation = playerLocation(stage2);
             int currentRow = currentLocation[0];
             int currentColumn = currentLocation[1];
 
