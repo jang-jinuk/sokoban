@@ -9,29 +9,38 @@ public class Sokoban {
                 {0, 4, 4, 4, 4, 4, 4, 4, 4, 0, 0}};
 
         while (true) {
-            System.out.println("stage2\n");
             printMap(stage2);
 
             int[] currentLocation = playerLocation(stage2);
             int currentRow = currentLocation[0];
             int currentCulumn = currentLocation[1];
 
-            Command location = new Command();
-            int[] changeLocation = location.indicateMove(currentLocation);
-            int changeRow = changeLocation[0];
-            int changeCulumn = changeLocation[1];
+            Command act = new Command();
+            char[] userCommand = act.inputCommand();
 
-            if (stage2[changeRow][changeCulumn] == 1 || stage2[changeRow][changeCulumn] == 2
-                    || stage2[changeRow][changeCulumn] == 4) {
-                System.out.println("(경고!) 해당 명령을 수행할 수 없습니다!");
-            } else {
-                stage2[changeRow][changeCulumn] = 3;
-                stage2[currentRow][currentCulumn] = 0;
+            for (int i = 0; i < userCommand.length; i++) {
+
+                int [] coordinate = act.commandCenter(userCommand[i], currentRow, currentCulumn);
+
+                int changeRow = coordinate[0];
+                int changeCulumn = coordinate[1];
+
+                if (stage2[changeRow][changeCulumn] == 1 || stage2[changeRow][changeCulumn] == 2
+                        || stage2[changeRow][changeCulumn] == 4) {
+                    printMap(stage2);
+                    System.out.printf("%c : (경고!) 해당 명령을 수행할 수 없습니다!\n\n",userCommand[i]);
+                } else {
+                    stage2[changeRow][changeCulumn] = 3;
+                    stage2[currentRow][currentCulumn] = 0;
+                    printMap(stage2);
+                    act.commandNotice(userCommand[i]);
+                }
+                currentLocation = playerLocation(stage2);
+                currentRow = currentLocation[0];
+                currentCulumn = currentLocation[1];
             }
-            System.out.println();
         }
     }
-
     void printMap(int[][] stage) {
         int rowLength = stage.length;
         int culumnLength = stage[0].length;
@@ -63,6 +72,7 @@ public class Sokoban {
         int rowLength = stage.length;
         int culumnLength = stage[0].length;
         int[] currentLocation = new int[2];
+
         for (int i = 0; i < rowLength; ++i) {
             for (int j = 0; j < culumnLength; ++j) {
                 if (stage[i][j] == 3) {

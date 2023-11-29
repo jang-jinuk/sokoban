@@ -1,46 +1,58 @@
 import java.util.Scanner;
 
 public class Command {
-    int[] indicateMove(int[] currentLocation) {
+    char[] inputCommand() {
         System.out.print("SOKOBAN> ");
         Scanner sc = new Scanner(System.in);
         String commandInput = sc.nextLine();
-        char [] indicateMove = new char[commandInput.length()];
+        System.out.println();
+        commandInput = commandInput.toUpperCase();
+        char [] userCommand = new char[commandInput.length()];
 
         for (int i = 0; i < commandInput.length(); i++){
                 char rudder = commandInput.charAt(i);
-            indicateMove[i] = rudder;
+            userCommand[i] = rudder;
         }
 
-        int [] changeLocation = movePlayer(indicateMove,currentLocation);
-
-        return changeLocation;
+        return userCommand;
     }
-    int [] movePlayer (char [] indicateMove,int[] currentLocation) {
-        int row = currentLocation[0];
-        int culumn = currentLocation[1];
+    int [] commandCenter(char userCommand, int currentRow, int currentCulumn) {
+        int[] coordinate = new int[2];
 
-        for (int i = 0; i < indicateMove.length; i++) {
-            switch (indicateMove[i]) {
-                case 'w':
-                    row--;
+            switch (userCommand) {
+                case 'W':
+                    coordinate[0] = --currentRow;
+                    coordinate[1] = currentCulumn;
                     break;
-                case 'a':
-                    culumn--;
+                case 'A':
+                    coordinate[0] = currentRow;
+                    coordinate[1] = --currentCulumn;
                     break;
-                case 's':
-                    row++;
+                case 'S':
+                    coordinate[0] = ++currentRow;
+                    coordinate[1] = currentCulumn;
                     break;
-                case 'd':
-                    culumn++;
-                    break;
-                case 'q':
-                    System.out.println("Bye~");
+                case 'D':
+                    coordinate[0] = currentRow;
+                    coordinate[1] = ++currentCulumn;
                     break;
             }
+        return coordinate;
+    }
+    void commandNotice(char userCommand){
+        switch (userCommand) {
+            case 'W':
+                System.out.println("W : 위로 이동합니다.\n");
+                break;
+            case 'A':
+                System.out.println("A : 왼쪽으로 이동합니다.\n");
+                break;
+            case 'S':
+                System.out.println("S : 아래로 이동합니다.\n");
+                break;
+            case 'D':
+                System.out.println("D : 오른쪽으로 이동합니다.\n");
+                break;
         }
-        currentLocation[0] = row;
-        currentLocation[1] = culumn;
-        return currentLocation;
     }
 }
