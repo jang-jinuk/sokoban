@@ -13,31 +13,35 @@ public class Sokoban {
 
             int[] currentLocation = playerLocation(stage2);
             int currentRow = currentLocation[0];
-            int currentCulumn = currentLocation[1];
+            int currentColumn = currentLocation[1];
 
             Command act = new Command();
             char[] userCommand = act.inputCommand();
 
             for (int i = 0; i < userCommand.length; i++) {
 
-                int [] coordinate = act.commandCenter(userCommand[i], currentRow, currentCulumn);
+                int [] coordinate = act.commandCenter(userCommand[i], currentRow, currentColumn);
 
                 int changeRow = coordinate[0];
-                int changeCulumn = coordinate[1];
+                int changeColumn = coordinate[1];
 
-                if (stage2[changeRow][changeCulumn] == 1 || stage2[changeRow][changeCulumn] == 2
-                        || stage2[changeRow][changeCulumn] == 4) {
+                if (stage2[changeRow][changeColumn] == 1 || stage2[changeRow][changeColumn] == 2
+                        || stage2[changeRow][changeColumn] == 4) {
                     printMap(stage2);
-                    System.out.printf("%c : (경고!) 해당 명령을 수행할 수 없습니다!\n\n",userCommand[i]);
-                } else {
-                    stage2[changeRow][changeCulumn] = 3;
-                    stage2[currentRow][currentCulumn] = 0;
+                    System.out.printf("%c : (경고!) 해당 명령을 수행할 수 없습니다!\n\n", userCommand[i]);
+                }
+                else if (stage2[changeRow][changeColumn] == 3) {
                     printMap(stage2);
                     act.commandNotice(userCommand[i]);
+                } else {
+                        stage2[changeRow][changeColumn] = 3;
+                        stage2[currentRow][currentColumn] = 0;
+                        printMap(stage2);
+                        act.commandNotice(userCommand[i]);
                 }
                 currentLocation = playerLocation(stage2);
                 currentRow = currentLocation[0];
-                currentCulumn = currentLocation[1];
+                currentColumn = currentLocation[1];
             }
         }
     }

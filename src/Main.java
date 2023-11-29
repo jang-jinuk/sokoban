@@ -4,7 +4,7 @@
 
 public class Main {
     public static void main(String[] args) {
-        System.out.println("stage2\n");
+        System.out.println("Stage2\n");
         Sokoban Lets = new Sokoban();
         Lets.goSokoban();
     }
